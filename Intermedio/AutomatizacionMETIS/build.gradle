@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.55")
+    }
+}
+ext{
+    serenityversion = '2.0.55'
+    serenityCucumber = '1.9.39'
+    jUnit = '4.12'
+    webdrivermanager = '3.8.1'
+}
+
+dependencies {
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: "$rootProject.ext.serenityversion"
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: "$rootProject.ext.serenityversion"
+    testImplementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: "$rootProject.ext.serenityCucumber"
+    implementation group: 'net.serenity-bdd', name: 'serenity-ensure', version: "$rootProject.ext.serenityversion"
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: "$rootProject.ext.webdrivermanager"
+    testImplementation group: 'junit', name: 'junit', version: "$rootProject.ext.jUnit"
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
+}
+
+test {
+    useJUnitPlatform()
+}
